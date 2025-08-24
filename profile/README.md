@@ -140,4 +140,4 @@ GraphDone-Core is MIT licensed. More info in the repo.
 
 **GraphDone** - For teams who think differently.
 
-*Built by Matthew Valancy & Lakshman Patel*
+*Started by Matthew Valancy & Lakshman Patel*
