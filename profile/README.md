@@ -82,7 +82,9 @@ Visualize complex relationships and dependencies in ways that make sense to patt
 ### Matthew Valancy
 **Co-Founder**
 
-<img src="img/matthew-photo.jpg" alt="Matthew Valancy" width="120" height="120" style="border-radius: 50%; border: 3px solid #10b981;">
+<p align="center">
+  <img src="img/matthew-photo.jpg" alt="Matthew Valancy" width="150" height="150">
+</p>
 
 *From Silicon Valley, California, Matthew has worked with engineering teams across every startup phase—from garage startups to IPO. He's observed that the most talented engineers are often self-directed individuals who thrive with autonomy, yet most management approaches are designed for workers who need constant oversight. GraphDone emerged from his belief that passionate, independent contributors deserve tools that amplify their strengths rather than constrain them.*
 
@@ -91,7 +93,9 @@ Visualize complex relationships and dependencies in ways that make sense to patt
 ### Lakshman Patel
 **Co-Founder** 
 
-<img src="img/lakshman-photo.jpg" alt="Lakshman Patel" width="120" height="120" style="border-radius: 50%; border: 3px solid #3b82f6;">
+<p align="center">
+  <img src="img/lakshman-photo.jpg" alt="Lakshman Patel" width="150" height="150">
+</p>
 
 *From a farming family in India that taught him hard work and seizing opportunities can transform lives, Lakshman brings that relentless drive to building technology. He champions rapidly adopting cutting-edge tools and methodologies to accelerate learning, continuously iterate on solutions, and deliver exceptional end-to-end experiences that exceed expectations.*
 
