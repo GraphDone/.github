@@ -1,5 +1,9 @@
+<div align="center">
+<img src="img/graphdone-logo.svg" alt="GraphDone Logo" width="120" height="120">
+
 # GraphDone
 **Your Team's Todone List**
+</div>
 
 > Connecting people of all thinking styles through a shared workspace where humans and intelligent machines collaborate naturally from day one. Open source project management that celebrates cognitive diversity and treats automation as a team member, not an afterthought.
 
