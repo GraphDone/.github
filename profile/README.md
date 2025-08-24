@@ -130,7 +130,7 @@ We welcome contributions from developers who share our vision of cognitive-inclu
 
 ## License
 
-Open source license details coming soon.
+GraphDone-Core is MIT licensed. More info in the repo.
 
 ---
 
