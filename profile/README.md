@@ -80,7 +80,7 @@ Visualize complex relationships and dependencies in ways that make sense to patt
 <div align="center">
 
 ### Matthew Valancy
-**Co-Founder**
+**Co-Founder, Engineer**
 
 <p align="center">
   <img src="img/matthew-photo.jpg" alt="Matthew Valancy" width="150" height="150">
@@ -91,7 +91,7 @@ Visualize complex relationships and dependencies in ways that make sense to patt
 ---
 
 ### Lakshman Patel
-**Co-Founder** 
+**Co-Founder, Engineer** 
 
 <p align="center">
   <img src="img/lakshman-photo.jpg" alt="Lakshman Patel" width="150" height="150">
