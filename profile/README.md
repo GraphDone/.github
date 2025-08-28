@@ -52,97 +52,124 @@ graph TB
     style REALTIME fill:#06b6d4,stroke:#fff,stroke-width:2px,color:#fff
 ```
 
-## Flexible Deployment Architecture
+## Enterprise Multi-Tenant Architecture
 
-GraphDone's microservices can be distributed across multiple servers for scalability and reliability:
+GraphDone's future architecture vision: distributed services with per-organization isolation across your infrastructure:
 
 ```mermaid
 graph TB
-    subgraph "Load Balancer"
-        LB[🌐 Load Balancer<br/>nginx/haproxy]
+    subgraph "Frontend Load Balancer"
+        LB[🌐 Main Load Balancer<br/>Route by Organization<br/>nginx/haproxy]
     end
     
-    subgraph "Web Servers (Multiple)"
-        WEB1[🖥️ Web Server 1<br/>React App<br/>Port 3127]
-        WEB2[🖥️ Web Server 2<br/>React App<br/>Port 3127]
-        WEB3[🖥️ Web Server 3<br/>React App<br/>Port 3127]
+    subgraph "Organization A - Server Cluster 1-3"
+        subgraph "Org A Services"
+            WEB_A[🖥️ Web Server A<br/>orgA.graphdone.local<br/>Port 3127]
+            API_A[🔧 GraphQL API A<br/>Port 4127]
+            DB_A[(🗄️ Neo4j A<br/>Port 7687)]
+            REDIS_A[⚡ Redis A<br/>Port 6379]
+        end
     end
     
-    subgraph "API Servers (Scalable)"
-        API1[🔧 GraphQL API 1<br/>Node.js Server<br/>Port 4127]
-        API2[🔧 GraphQL API 2<br/>Node.js Server<br/>Port 4127]
-        API3[🔧 GraphQL API 3<br/>Node.js Server<br/>Port 4127]
+    subgraph "Organization B - Server Cluster 4-6"
+        subgraph "Org B Services"
+            WEB_B[🖥️ Web Server B<br/>orgB.graphdone.local<br/>Port 3127]
+            API_B[🔧 GraphQL API B<br/>Port 4127]
+            DB_B[(🗄️ Neo4j B<br/>Port 7687)]
+            REDIS_B[⚡ Redis B<br/>Port 6379]
+        end
     end
     
-    subgraph "Database Cluster"
-        NEO4J_PRIMARY[(🗄️ Neo4j Primary<br/>Read/Write<br/>Port 7687)]
-        NEO4J_READ1[(🗄️ Neo4j Read Replica 1<br/>Read Only)]
-        NEO4J_READ2[(🗄️ Neo4j Read Replica 2<br/>Read Only)]
+    subgraph "Organization C - Server Cluster 7-9"
+        subgraph "Org C Services"
+            WEB_C[🖥️ Web Server C<br/>orgC.graphdone.local<br/>Port 3127]
+            API_C[🔧 GraphQL API C<br/>Port 4127]
+            DB_C[(🗄️ Neo4j C<br/>Port 7687)]
+            REDIS_C[⚡ Redis C<br/>Port 6379]
+        end
     end
     
-    subgraph "Supporting Services"
-        REDIS[⚡ Redis Cache<br/>Session Storage<br/>Port 6379]
-        MCP[🤖 MCP Server<br/>Claude Integration<br/>Port 3128]
-        MONITOR[📊 Monitoring<br/>Prometheus/Grafana]
+    subgraph "Shared Services - Server 10"
+        MCP_SHARED[🤖 Shared MCP Server<br/>All Organizations<br/>Port 3128]
+        MONITOR[📊 Central Monitoring<br/>Prometheus/Grafana]
+        DNS[🔍 Internal DNS<br/>Service Discovery]
+        BACKUP[💾 Backup Services<br/>Cross-org backups]
     end
     
-    subgraph "External Clients"
-        BROWSER[🌐 Web Browser]
-        MOBILE[📱 Mobile Apps]
-        AI[🤖 AI Agents]
+    subgraph "Client Access"
+        ORG_A_USERS[👥 Organization A Users]
+        ORG_B_USERS[👥 Organization B Users]  
+        ORG_C_USERS[👥 Organization C Users]
+        AI_AGENTS[🤖 AI Agents]
     end
     
-    BROWSER --> LB
-    MOBILE --> LB
-    AI --> LB
+    ORG_A_USERS --> LB
+    ORG_B_USERS --> LB
+    ORG_C_USERS --> LB
+    AI_AGENTS --> LB
     
-    LB --> WEB1
-    LB --> WEB2 
-    LB --> WEB3
+    LB -->|orgA.graphdone.local| WEB_A
+    LB -->|orgB.graphdone.local| WEB_B
+    LB -->|orgC.graphdone.local| WEB_C
     
-    WEB1 --> API1
-    WEB2 --> API2
-    WEB3 --> API3
+    WEB_A --> API_A
+    WEB_B --> API_B
+    WEB_C --> API_C
     
-    API1 --> NEO4J_PRIMARY
-    API2 --> NEO4J_READ1
-    API3 --> NEO4J_READ2
+    API_A --> DB_A
+    API_B --> DB_B
+    API_C --> DB_C
     
-    NEO4J_PRIMARY -.->|Replication| NEO4J_READ1
-    NEO4J_PRIMARY -.->|Replication| NEO4J_READ2
+    API_A --> REDIS_A
+    API_B --> REDIS_B
+    API_C --> REDIS_C
     
-    API1 --> REDIS
-    API2 --> REDIS
-    API3 --> REDIS
+    AI_AGENTS --> MCP_SHARED
+    MCP_SHARED --> DB_A
+    MCP_SHARED --> DB_B
+    MCP_SHARED --> DB_C
     
-    AI --> MCP
-    MCP --> NEO4J_PRIMARY
+    MONITOR --> API_A
+    MONITOR --> API_B
+    MONITOR --> API_C
+    MONITOR --> DB_A
+    MONITOR --> DB_B
+    MONITOR --> DB_C
     
-    MONITOR --> API1
-    MONITOR --> API2 
-    MONITOR --> API3
-    MONITOR --> NEO4J_PRIMARY
+    BACKUP --> DB_A
+    BACKUP --> DB_B
+    BACKUP --> DB_C
+    
+    DNS --> API_A
+    DNS --> API_B
+    DNS --> API_C
     
     style LB fill:#ff6b6b,stroke:#fff,stroke-width:2px,color:#fff
-    style WEB1 fill:#4ecdc4,stroke:#fff,stroke-width:2px,color:#fff
-    style WEB2 fill:#4ecdc4,stroke:#fff,stroke-width:2px,color:#fff
-    style WEB3 fill:#4ecdc4,stroke:#fff,stroke-width:2px,color:#fff
-    style API1 fill:#45b7d1,stroke:#fff,stroke-width:2px,color:#fff
-    style API2 fill:#45b7d1,stroke:#fff,stroke-width:2px,color:#fff
-    style API3 fill:#45b7d1,stroke:#fff,stroke-width:2px,color:#fff
-    style NEO4J_PRIMARY fill:#f9ca24,stroke:#fff,stroke-width:2px,color:#fff
-    style NEO4J_READ1 fill:#f0932b,stroke:#fff,stroke-width:2px,color:#fff
-    style NEO4J_READ2 fill:#f0932b,stroke:#fff,stroke-width:2px,color:#fff
-    style REDIS fill:#eb4d4b,stroke:#fff,stroke-width:2px,color:#fff
-    style MCP fill:#6c5ce7,stroke:#fff,stroke-width:2px,color:#fff
+    style WEB_A fill:#4ecdc4,stroke:#fff,stroke-width:2px,color:#fff
+    style WEB_B fill:#4ecdc4,stroke:#fff,stroke-width:2px,color:#fff
+    style WEB_C fill:#4ecdc4,stroke:#fff,stroke-width:2px,color:#fff
+    style API_A fill:#45b7d1,stroke:#fff,stroke-width:2px,color:#fff
+    style API_B fill:#45b7d1,stroke:#fff,stroke-width:2px,color:#fff
+    style API_C fill:#45b7d1,stroke:#fff,stroke-width:2px,color:#fff
+    style DB_A fill:#f9ca24,stroke:#fff,stroke-width:2px,color:#fff
+    style DB_B fill:#f9ca24,stroke:#fff,stroke-width:2px,color:#fff
+    style DB_C fill:#f9ca24,stroke:#fff,stroke-width:2px,color:#fff
+    style REDIS_A fill:#eb4d4b,stroke:#fff,stroke-width:2px,color:#fff
+    style REDIS_B fill:#eb4d4b,stroke:#fff,stroke-width:2px,color:#fff
+    style REDIS_C fill:#eb4d4b,stroke:#fff,stroke-width:2px,color:#fff
+    style MCP_SHARED fill:#6c5ce7,stroke:#fff,stroke-width:2px,color:#fff
 ```
 
-**Deployment Benefits:**
-- **🔄 High Availability** - Multiple instances eliminate single points of failure
-- **📈 Auto-scaling** - Add more web/API servers based on load
-- **🌍 Geographic Distribution** - Deploy closer to users worldwide
-- **🔒 Security Isolation** - Separate database from public-facing services
-- **⚡ Performance** - Read replicas and caching reduce response times
+**Enterprise Multi-Tenant Benefits:**
+- **🏢 Organizational Isolation** - Complete data separation between teams/companies
+- **🔒 Enhanced Security** - Each org has dedicated infrastructure and database
+- **📊 Resource Control** - Allocate specific server resources per organization
+- **🌐 Flexible Routing** - Route by subdomain (orgA.graphdone.local)
+- **🔧 Custom Configuration** - Per-org settings, themes, and integrations
+- **💾 Centralized Management** - Shared monitoring, backups, and DNS services
+- **🤖 AI Agent Access** - Shared MCP server can access all orgs (with permissions)
+
+**Current Status:** *This is a future architecture vision - GraphDone-Core currently runs as single-server application*
 
 ## Philosophy
 
