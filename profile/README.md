@@ -52,6 +52,98 @@ graph TB
     style REALTIME fill:#06b6d4,stroke:#fff,stroke-width:2px,color:#fff
 ```
 
+## Flexible Deployment Architecture
+
+GraphDone's microservices can be distributed across multiple servers for scalability and reliability:
+
+```mermaid
+graph TB
+    subgraph "Load Balancer"
+        LB[🌐 Load Balancer<br/>nginx/haproxy]
+    end
+    
+    subgraph "Web Servers (Multiple)"
+        WEB1[🖥️ Web Server 1<br/>React App<br/>Port 3127]
+        WEB2[🖥️ Web Server 2<br/>React App<br/>Port 3127]
+        WEB3[🖥️ Web Server 3<br/>React App<br/>Port 3127]
+    end
+    
+    subgraph "API Servers (Scalable)"
+        API1[🔧 GraphQL API 1<br/>Node.js Server<br/>Port 4127]
+        API2[🔧 GraphQL API 2<br/>Node.js Server<br/>Port 4127]
+        API3[🔧 GraphQL API 3<br/>Node.js Server<br/>Port 4127]
+    end
+    
+    subgraph "Database Cluster"
+        NEO4J_PRIMARY[(🗄️ Neo4j Primary<br/>Read/Write<br/>Port 7687)]
+        NEO4J_READ1[(🗄️ Neo4j Read Replica 1<br/>Read Only)]
+        NEO4J_READ2[(🗄️ Neo4j Read Replica 2<br/>Read Only)]
+    end
+    
+    subgraph "Supporting Services"
+        REDIS[⚡ Redis Cache<br/>Session Storage<br/>Port 6379]
+        MCP[🤖 MCP Server<br/>Claude Integration<br/>Port 3128]
+        MONITOR[📊 Monitoring<br/>Prometheus/Grafana]
+    end
+    
+    subgraph "External Clients"
+        BROWSER[🌐 Web Browser]
+        MOBILE[📱 Mobile Apps]
+        AI[🤖 AI Agents]
+    end
+    
+    BROWSER --> LB
+    MOBILE --> LB
+    AI --> LB
+    
+    LB --> WEB1
+    LB --> WEB2 
+    LB --> WEB3
+    
+    WEB1 --> API1
+    WEB2 --> API2
+    WEB3 --> API3
+    
+    API1 --> NEO4J_PRIMARY
+    API2 --> NEO4J_READ1
+    API3 --> NEO4J_READ2
+    
+    NEO4J_PRIMARY -.->|Replication| NEO4J_READ1
+    NEO4J_PRIMARY -.->|Replication| NEO4J_READ2
+    
+    API1 --> REDIS
+    API2 --> REDIS
+    API3 --> REDIS
+    
+    AI --> MCP
+    MCP --> NEO4J_PRIMARY
+    
+    MONITOR --> API1
+    MONITOR --> API2 
+    MONITOR --> API3
+    MONITOR --> NEO4J_PRIMARY
+    
+    style LB fill:#ff6b6b,stroke:#fff,stroke-width:2px,color:#fff
+    style WEB1 fill:#4ecdc4,stroke:#fff,stroke-width:2px,color:#fff
+    style WEB2 fill:#4ecdc4,stroke:#fff,stroke-width:2px,color:#fff
+    style WEB3 fill:#4ecdc4,stroke:#fff,stroke-width:2px,color:#fff
+    style API1 fill:#45b7d1,stroke:#fff,stroke-width:2px,color:#fff
+    style API2 fill:#45b7d1,stroke:#fff,stroke-width:2px,color:#fff
+    style API3 fill:#45b7d1,stroke:#fff,stroke-width:2px,color:#fff
+    style NEO4J_PRIMARY fill:#f9ca24,stroke:#fff,stroke-width:2px,color:#fff
+    style NEO4J_READ1 fill:#f0932b,stroke:#fff,stroke-width:2px,color:#fff
+    style NEO4J_READ2 fill:#f0932b,stroke:#fff,stroke-width:2px,color:#fff
+    style REDIS fill:#eb4d4b,stroke:#fff,stroke-width:2px,color:#fff
+    style MCP fill:#6c5ce7,stroke:#fff,stroke-width:2px,color:#fff
+```
+
+**Deployment Benefits:**
+- **🔄 High Availability** - Multiple instances eliminate single points of failure
+- **📈 Auto-scaling** - Add more web/API servers based on load
+- **🌍 Geographic Distribution** - Deploy closer to users worldwide
+- **🔒 Security Isolation** - Separate database from public-facing services
+- **⚡ Performance** - Read replicas and caching reduce response times
+
 ## Philosophy
 
 GraphDone celebrates cognitive diversity by providing tools where different minds—human and AI—can collaborate naturally. Traditional project management forces everyone into the same workflow. We believe the best results come from teams where diverse thinking styles become strengths, not obstacles.
