@@ -6,7 +6,7 @@
 
 ## 🚀 Public Repository & Documentation
 
-[![GraphDone-Core](https://img.shields.io/badge/📦_GraphDone--Core-Main%20Application-blue?style=for-the-badge)](https://github.com/GraphDone/GraphDone-Core) [![Core Docs](https://img.shields.io/badge/📖_Documentation-Comprehensive%20Guides-green?style=for-the-badge)](https://github.com/GraphDone/GraphDone-Core/tree/main/docs/guides)
+[![Main Application](https://img.shields.io/badge/📦_Main%20Application-GraphDone--Core-blue?style=for-the-badge)](https://github.com/GraphDone/GraphDone-Core) [![Documentation](https://img.shields.io/badge/📖_Documentation-Setup%20%26%20Guides-green?style=for-the-badge)](https://github.com/GraphDone/GraphDone-Core/tree/main/docs)
 
 </div>
 
