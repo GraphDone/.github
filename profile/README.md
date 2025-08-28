@@ -3,40 +3,53 @@
 
 # GraphDone
 **Your Team's Todone List**
+
+## 🚀 Public Repository & Documentation
+
+[![GraphDone-Core](https://img.shields.io/badge/📦_GraphDone--Core-Main%20Application-blue?style=for-the-badge)](https://github.com/GraphDone/GraphDone-Core) [![Core Docs](https://img.shields.io/badge/📖_Documentation-Comprehensive%20Guides-green?style=for-the-badge)](https://github.com/GraphDone/GraphDone-Core/tree/main/docs)
+
 </div>
 
 > Connecting people of all thinking styles through a shared workspace where humans and intelligent machines collaborate naturally from day one. Open source project management that celebrates cognitive diversity and treats automation as a team member, not an afterthought.
 
-## Overview
+## GraphDone Ecosystem
 
 ```mermaid
 graph TB
-    A[Shared Data Foundation] --> B[Human Contributors]
-    A --> C[Intelligent Machines]
-    A --> D[Project Goals]
+    subgraph "GraphDone Ecosystem"
+        subgraph "Public Repository"
+            CORE[📦 GraphDone-Core<br/>🌐 Web Application<br/>🔧 GraphQL API<br/>🗄️ Neo4j Database<br/>🤖 AI Agent SDK]
+        end
+        
+        subgraph "Mobile Applications"
+            IOS[📱 GraphDone-iOS<br/>Native SwiftUI App<br/>Touch-optimized Interface]
+            ANDROID[📱 GraphDone-Android<br/>Native Kotlin App<br/>Mobile-first Design]
+        end
+        
+        subgraph "Shared Foundation"
+            API[GraphQL API<br/>Port 4127]
+            DB[(Neo4j Database<br/>Graph Storage)]
+            REALTIME[WebSocket<br/>Real-time Sync]
+        end
+    end
     
-    B --> E[Visual Thinkers<br/>Graph Views]
-    B --> F[Linear Thinkers<br/>List Views]
-    B --> G[Detail Focused<br/>Deep Dive Modes]
-    B --> H[Big Picture<br/>Overview Modes]
+    CORE --> API
+    API --> DB
+    API --> REALTIME
     
-    C --> I[Pattern Recognition]
-    C --> J[Data Processing]
-    C --> K[Task Automation]
+    IOS --> API
+    ANDROID --> API
     
-    E --> L[Collaborative Output]
-    F --> L
-    G --> L
-    H --> L
-    I --> L
-    J --> L
-    K --> L
+    REALTIME --> IOS
+    REALTIME --> ANDROID
+    REALTIME --> CORE
     
-    L --> D
-    
-    style A fill:#4f46e5,stroke:#fff,stroke-width:2px,color:#fff
-    style L fill:#10b981,stroke:#fff,stroke-width:2px,color:#fff
-    style D fill:#f59e0b,stroke:#fff,stroke-width:2px,color:#fff
+    style CORE fill:#3b82f6,stroke:#fff,stroke-width:2px,color:#fff
+    style IOS fill:#8b5cf6,stroke:#fff,stroke-width:2px,color:#fff
+    style ANDROID fill:#10b981,stroke:#fff,stroke-width:2px,color:#fff
+    style API fill:#f59e0b,stroke:#fff,stroke-width:2px,color:#fff
+    style DB fill:#ef4444,stroke:#fff,stroke-width:2px,color:#fff
+    style REALTIME fill:#06b6d4,stroke:#fff,stroke-width:2px,color:#fff
 ```
 
 ## Our Philosophy
@@ -121,16 +134,16 @@ GraphDone is currently in development. To stay updated:
 
 ## Project Structure
 
-### Open Source Core
-**GraphDone-Core** - Main application and services
+### Open Source Repository
+**[GraphDone-Core](https://github.com/GraphDone/GraphDone-Core)** - Main application and services ([📖 Documentation](https://github.com/GraphDone/GraphDone-Core/tree/main/docs))
 - `packages/core/` - Graph engine and algorithms  
 - `packages/web/` - React web application
 - `packages/server/` - GraphQL API server
-- `packages/agent-sdk/` - SDK for AI agent integration
+- `packages/mcp-server/` - Claude Code integration
 
-### Additional Projects
-- **GraphDone-iOS** (private) - Native iOS application
-- **GraphDone-Android** (private) - Native Android application
+### Mobile Applications
+- **GraphDone-iOS** - Native SwiftUI application with touch-optimized graph interface
+- **GraphDone-Android** - Native Kotlin application with mobile-first design
 
 ## Contributing
 
