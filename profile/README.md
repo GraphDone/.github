@@ -94,6 +94,7 @@ graph TB
         MONITOR[📊 Central Monitoring<br/>Prometheus/Grafana]
         DNS[🔍 Internal DNS<br/>Service Discovery]
         BACKUP[💾 Backup Services<br/>Cross-org backups]
+        SSO[🔐 SSO Provider<br/>Microsoft AD / Google<br/>SAML/OAuth2]
     end
     
     subgraph "Client Access"
@@ -144,6 +145,10 @@ graph TB
     DNS --> API_B
     DNS --> API_C
     
+    API_A --> SSO
+    API_B --> SSO
+    API_C --> SSO
+    
     style LB fill:#ff6b6b,stroke:#fff,stroke-width:2px,color:#fff
     style WEB_A fill:#4ecdc4,stroke:#fff,stroke-width:2px,color:#fff
     style WEB_B fill:#4ecdc4,stroke:#fff,stroke-width:2px,color:#fff
@@ -158,11 +163,13 @@ graph TB
     style REDIS_B fill:#eb4d4b,stroke:#fff,stroke-width:2px,color:#fff
     style REDIS_C fill:#eb4d4b,stroke:#fff,stroke-width:2px,color:#fff
     style MCP_SHARED fill:#6c5ce7,stroke:#fff,stroke-width:2px,color:#fff
+    style SSO fill:#fd79a8,stroke:#fff,stroke-width:2px,color:#fff
 ```
 
 **Enterprise Multi-Tenant Benefits:**
 - **🏢 Organizational Isolation** - Complete data separation between teams/companies
 - **🔒 Enhanced Security** - Each org has dedicated infrastructure and database
+- **🔐 Single Sign-On (SSO)** - Integrated Microsoft AD/Google authentication
 - **📊 Resource Control** - Allocate specific server resources per organization
 - **🌐 Flexible Routing** - Route by subdomain (orgA.graphdone.local)
 - **🔧 Custom Configuration** - Per-org settings, themes, and integrations
