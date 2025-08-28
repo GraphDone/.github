@@ -52,41 +52,16 @@ graph TB
     style REALTIME fill:#06b6d4,stroke:#fff,stroke-width:2px,color:#fff
 ```
 
-## Our Philosophy
+## Philosophy
 
-High-performing teams are full of brilliant minds that work differently—both human and machine. Some think in patterns and connections, others need to hyperfocus on details. Some thrive on rapid task-switching, others prefer deep, uninterrupted work. Some process information visually, others through movement or sound. Traditional tools force everyone into the same box, and treat automation as an awkward add-on. 
-
-GraphDone provides a shared foundation where every type of mind—biological or digital—can contribute in their most natural way toward goals that benefit everyone.
+GraphDone celebrates cognitive diversity by providing tools where different minds—human and AI—can collaborate naturally. Traditional project management forces everyone into the same workflow. We believe the best results come from teams where diverse thinking styles become strengths, not obstacles.
 
 ## Key Features
 
-### 🧠 **Multiple Thinking Modes**
-Visual graphs, linear lists, detail views, big picture overviews - access your data the way your mind works best.
-
-### 🔗 **Non-Linear Workflows** 
-Jump between tasks naturally. Perfect for minds that think in connections rather than sequential steps.
-
-### 👥 **Strengths-Based Teams**
-Different minds see different solutions. Our tools help diverse thinkers collaborate without masking their natural styles.
-
-### ⚡ **Hyperfocus Friendly**
-Deep-dive modes for intense focus sessions, plus gentle transitions to help you surface when ready.
-
-### 🛡️ **Sensory Considerations**
-Customizable interfaces, reduced cognitive load, and calm design that doesn't overwhelm sensitive processing styles.
-
-### 🌐 **Pattern Recognition**
-Visualize complex relationships and dependencies in ways that make sense to pattern-oriented minds.
-
-## How It Works
-
-1. **Shared Data, Personal Views** - Everyone works with the same information, but sees and interacts with it in their preferred style - graphs, lists, calendars, or kanban boards.
-
-2. **Natural Connections** - Link tasks through real dependencies and relationships, not artificial hierarchies that don't match how minds actually work.
-
-3. **Adaptive Interfaces** - Customize sensory inputs, interaction patterns, and information density to match your processing preferences.
-
-4. **Celebrate Differences** - Different thinking styles become team strengths rather than obstacles to overcome.
+🧠 **Multiple Views** - Graph, list, calendar, or kanban - work how your mind works best  
+🔗 **Natural Dependencies** - Connect tasks through real relationships, not artificial hierarchies  
+⚡ **Focus-Friendly** - Deep-dive modes with gentle transitions for different attention styles  
+🤖 **Human-AI Collaboration** - AI agents as team members, not afterthoughts
 
 ## Meet the Founders
 
@@ -114,44 +89,13 @@ Visualize complex relationships and dependencies in ways that make sense to patt
 
 </div>
 
-## Open Source Philosophy
+## Get Started
 
-GraphDone's core services and applications are open source, reflecting our commitment to transparent, community-driven development for human collaboration tools. We believe the best tools for human-machine collaboration should be accessible to everyone.
+**[⭐ GraphDone-Core](https://github.com/GraphDone/GraphDone-Core)** - Open source web application and GraphQL API  
+**[📖 Documentation](https://github.com/GraphDone/GraphDone-Core/tree/main/docs)** - Comprehensive setup and development guides
 
-## Getting Started
-
-GraphDone is currently in development. To stay updated:
-
-- ⭐ **Star this repository** to get notified of releases
-- 📧 **Join our community** for early access updates
-
-## Tech Stack
-
-- **Frontend**: React, TypeScript, D3.js for graph visualization
-- **Backend**: Node.js, GraphQL, Neo4j
-- **Infrastructure**: Docker, Kubernetes
-- **Testing**: Playwright, Vitest
-
-## Project Structure
-
-### Open Source Repository
-**[GraphDone-Core](https://github.com/GraphDone/GraphDone-Core)** - Main application and services ([📖 Documentation](https://github.com/GraphDone/GraphDone-Core/tree/main/docs))
-- `packages/core/` - Graph engine and algorithms  
-- `packages/web/` - React web application
-- `packages/server/` - GraphQL API server
-- `packages/mcp-server/` - Claude Code integration
-
-### Mobile Applications
-- **GraphDone-iOS** - Native SwiftUI application with touch-optimized graph interface
-- **GraphDone-Android** - Native Kotlin application with mobile-first design
-
-## Contributing
-
-We welcome contributions from developers who share our vision of cognitive-inclusive technology. More contribution guidelines coming soon.
-
-## License
-
-GraphDone-Core is MIT licensed. More info in the repo.
+**Tech Stack:** React, TypeScript, Node.js, GraphQL, Neo4j, Docker  
+**License:** MIT - Open source and community-driven
 
 ---
 
