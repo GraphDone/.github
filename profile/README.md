@@ -6,7 +6,7 @@
 
 ## 🚀 Public Repository & Documentation
 
-[![GraphDone-Core](https://img.shields.io/badge/📦_GraphDone--Core-Main%20Application-blue?style=for-the-badge)](https://github.com/GraphDone/GraphDone-Core) [![Core Docs](https://img.shields.io/badge/📖_Documentation-Comprehensive%20Guides-green?style=for-the-badge)](https://github.com/GraphDone/GraphDone-Core/tree/main/docs)
+[![GraphDone-Core](https://img.shields.io/badge/📦_GraphDone--Core-Main%20Application-blue?style=for-the-badge)](https://github.com/GraphDone/GraphDone-Core) [![Core Docs](https://img.shields.io/badge/📖_Documentation-Comprehensive%20Guides-green?style=for-the-badge)](https://github.com/GraphDone/GraphDone-Core/tree/main/docs/guides)
 
 </div>
 
@@ -92,7 +92,7 @@ GraphDone celebrates cognitive diversity by providing tools where different mind
 ## Get Started
 
 **[⭐ GraphDone-Core](https://github.com/GraphDone/GraphDone-Core)** - Open source web application and GraphQL API  
-**[📖 Documentation](https://github.com/GraphDone/GraphDone-Core/tree/main/docs)** - Comprehensive setup and development guides
+**[📖 Documentation](https://github.com/GraphDone/GraphDone-Core/tree/main/docs)** - Complete technical documentation and guides
 
 **Tech Stack:** React, TypeScript, Node.js, GraphQL, Neo4j, Docker  
 **License:** MIT - Open source and community-driven
