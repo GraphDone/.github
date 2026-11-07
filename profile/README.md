@@ -14,7 +14,7 @@ GraphDone is one graph of work that people and AI agents share. Work items, the 
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="img/system/graphdone-system-dark.svg">
-  <img src="img/system/graphdone-system-light.svg" width="100%" alt="GraphDone system map: people use the web app, which reaches the shared graph through the GraphQL API; AI agents reach it directly through the MCP server and the agent API (in development). GraphDone-Core is open source (MIT), self-hosted by you or hosted at graphdone.com.">
+  <img src="img/system/graphdone-system-light.svg" width="100%" alt="GraphDone system map: people reach the shared graph through the web app and the GraphQL API; AI agents reach it through the MCP server or the agent API (in development). GraphDone-Core is MIT, self-hosted or hosted at graphdone.com.">
 </picture>
 
 ## Meet the Creators
