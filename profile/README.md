@@ -1,193 +1,31 @@
-<div align="center">
-<img src="img/graphdone-logo.svg" alt="GraphDone Logo" width="120" height="120">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="img/hero/graphdone-dark.svg">
+  <img src="img/hero/graphdone-light.svg" width="100%" alt="GraphDone: one graph of work for people and AI agents. The open-source core (web app, GraphQL API, MCP server), the hosted app at graphdone.com, AI agents and people connect round shared outcomes.">
+</picture>
 
-# GraphDone
-**Your Team's Todone List**
+GraphDone is one graph of work that people and AI agents share. Work items, the people and agents who own them, and the dependencies between them all live in one graph, and the work converges on outcomes instead of flowing down a hierarchy. Agents are peers in that graph: they read and change it through an MCP server and an agent API, just as people do through the web app.
 
-## 🚀 Public Repository & Documentation
+## How it fits together
 
-[![Main Application](https://img.shields.io/badge/📦_Main%20Application-GraphDone--Core-blue?style=for-the-badge)](https://github.com/GraphDone/GraphDone-Core) [![Documentation](https://img.shields.io/badge/📖_Documentation-Setup%20%26%20Guides-green?style=for-the-badge)](https://github.com/GraphDone/GraphDone-Core/tree/main/docs)
-
-</div>
-
-> Connecting people of all thinking styles through a shared workspace where humans and intelligent machines collaborate naturally from day one. Open source project management that celebrates cognitive diversity and treats automation as a team member, not an afterthought.
-
-## GraphDone Ecosystem
+- **GraphDone-Core** is open source (MIT): a React web app, a GraphQL API and an MCP server for AI agents. You can self-host it. An agent API is in development on its `dev` branch.
+- **graphdone.com** is the hosted app, built on Core. It runs on Cloudflare: Pages for the web app, Workers for the API, and D1 (SQLite) for the graph. A private hosted layer adds hardened sign-in, enrollment, sharing and usage limits.
+- **People and AI agents** work in the same graph: people through the web app, agents through the MCP server and the agent API. Each of these reaches the graph on its own path; the MCP server and the agent API do not go through GraphQL.
+- Deployment and test automation and the landing site are maintained privately.
 
 ```mermaid
-graph TB
-    subgraph "GraphDone Ecosystem"
-        subgraph "Public Repository"
-            CORE[📦 GraphDone-Core<br/>🌐 Web Application<br/>🔧 GraphQL API<br/>🗄️ Neo4j Database<br/>🤖 AI Agent SDK]
-        end
-        
-        subgraph "Mobile Applications"
-            IOS[📱 GraphDone-iOS<br/>Native SwiftUI App<br/>Touch-optimized Interface]
-            ANDROID[📱 GraphDone-Android<br/>Native Kotlin App<br/>Mobile-first Design]
-        end
-        
-        subgraph "Shared Foundation"
-            API[GraphQL API<br/>Port 4127]
-            DB[(Neo4j Database<br/>Graph Storage)]
-            REALTIME[WebSocket<br/>Real-time Sync]
-        end
+flowchart LR
+    P[People] --> W[Web app]
+    A[AI agents] --> M[MCP server]
+    A --> AA[Agent API]
+    subgraph C [GraphDone-Core - open source, MIT]
+        W --> G[GraphQL API]
+        G --> D[(Shared graph)]
+        M --> D
+        AA --> D
     end
-    
-    CORE --> API
-    API --> DB
-    API --> REALTIME
-    
-    IOS --> API
-    ANDROID --> API
-    
-    REALTIME --> IOS
-    REALTIME --> ANDROID
-    REALTIME --> CORE
-    
-    style CORE fill:#3b82f6,stroke:#fff,stroke-width:2px,color:#fff
-    style IOS fill:#8b5cf6,stroke:#fff,stroke-width:2px,color:#fff
-    style ANDROID fill:#10b981,stroke:#fff,stroke-width:2px,color:#fff
-    style API fill:#f59e0b,stroke:#fff,stroke-width:2px,color:#fff
-    style DB fill:#ef4444,stroke:#fff,stroke-width:2px,color:#fff
-    style REALTIME fill:#06b6d4,stroke:#fff,stroke-width:2px,color:#fff
+    C -.-> S[Self-hosted by you]
+    C -.-> H[graphdone.com - hosted]
 ```
-
-## Enterprise Multi-Tenant Architecture
-
-GraphDone's future architecture vision: distributed services with per-organization isolation across your infrastructure:
-
-```mermaid
-graph TB
-    subgraph "Frontend Load Balancer"
-        LB[🌐 Main Load Balancer<br/>Route by Organization<br/>nginx/haproxy]
-    end
-    
-    subgraph "Organization A - Server Cluster 1-3"
-        subgraph "Org A Services"
-            WEB_A[🖥️ Web Server A<br/>orgA.graphdone.local<br/>Port 3127]
-            API_A[🔧 GraphQL API A<br/>Port 4127]
-            DB_A[(🗄️ Neo4j A<br/>Port 7687)]
-            REDIS_A[⚡ Redis A<br/>Port 6379]
-        end
-    end
-    
-    subgraph "Organization B - Server Cluster 4-6"
-        subgraph "Org B Services"
-            WEB_B[🖥️ Web Server B<br/>orgB.graphdone.local<br/>Port 3127]
-            API_B[🔧 GraphQL API B<br/>Port 4127]
-            DB_B[(🗄️ Neo4j B<br/>Port 7687)]
-            REDIS_B[⚡ Redis B<br/>Port 6379]
-        end
-    end
-    
-    subgraph "Organization C - Server Cluster 7-9"
-        subgraph "Org C Services"
-            WEB_C[🖥️ Web Server C<br/>orgC.graphdone.local<br/>Port 3127]
-            API_C[🔧 GraphQL API C<br/>Port 4127]
-            DB_C[(🗄️ Neo4j C<br/>Port 7687)]
-            REDIS_C[⚡ Redis C<br/>Port 6379]
-        end
-    end
-    
-    subgraph "Shared Services - Server 10"
-        MCP_SHARED[🤖 Shared MCP Server<br/>All Organizations<br/>Port 3128]
-        MONITOR[📊 Central Monitoring<br/>Prometheus/Grafana]
-        DNS[🔍 Internal DNS<br/>Service Discovery]
-        BACKUP[💾 Backup Services<br/>Cross-org backups]
-        SSO[🔐 SSO Provider<br/>Microsoft AD / Google<br/>SAML/OAuth2]
-    end
-    
-    subgraph "Client Access"
-        ORG_A_USERS[👥 Organization A Users]
-        ORG_B_USERS[👥 Organization B Users]  
-        ORG_C_USERS[👥 Organization C Users]
-        AI_AGENTS[🤖 AI Agents]
-    end
-    
-    ORG_A_USERS --> LB
-    ORG_B_USERS --> LB
-    ORG_C_USERS --> LB
-    AI_AGENTS --> LB
-    
-    LB -->|orgA.graphdone.local| WEB_A
-    LB -->|orgB.graphdone.local| WEB_B
-    LB -->|orgC.graphdone.local| WEB_C
-    
-    WEB_A --> API_A
-    WEB_B --> API_B
-    WEB_C --> API_C
-    
-    API_A --> DB_A
-    API_B --> DB_B
-    API_C --> DB_C
-    
-    API_A --> REDIS_A
-    API_B --> REDIS_B
-    API_C --> REDIS_C
-    
-    AI_AGENTS --> MCP_SHARED
-    MCP_SHARED --> DB_A
-    MCP_SHARED --> DB_B
-    MCP_SHARED --> DB_C
-    
-    MONITOR --> API_A
-    MONITOR --> API_B
-    MONITOR --> API_C
-    MONITOR --> DB_A
-    MONITOR --> DB_B
-    MONITOR --> DB_C
-    
-    BACKUP --> DB_A
-    BACKUP --> DB_B
-    BACKUP --> DB_C
-    
-    DNS --> API_A
-    DNS --> API_B
-    DNS --> API_C
-    
-    API_A --> SSO
-    API_B --> SSO
-    API_C --> SSO
-    
-    style LB fill:#ff6b6b,stroke:#fff,stroke-width:2px,color:#fff
-    style WEB_A fill:#4ecdc4,stroke:#fff,stroke-width:2px,color:#fff
-    style WEB_B fill:#4ecdc4,stroke:#fff,stroke-width:2px,color:#fff
-    style WEB_C fill:#4ecdc4,stroke:#fff,stroke-width:2px,color:#fff
-    style API_A fill:#45b7d1,stroke:#fff,stroke-width:2px,color:#fff
-    style API_B fill:#45b7d1,stroke:#fff,stroke-width:2px,color:#fff
-    style API_C fill:#45b7d1,stroke:#fff,stroke-width:2px,color:#fff
-    style DB_A fill:#f9ca24,stroke:#fff,stroke-width:2px,color:#fff
-    style DB_B fill:#f9ca24,stroke:#fff,stroke-width:2px,color:#fff
-    style DB_C fill:#f9ca24,stroke:#fff,stroke-width:2px,color:#fff
-    style REDIS_A fill:#eb4d4b,stroke:#fff,stroke-width:2px,color:#fff
-    style REDIS_B fill:#eb4d4b,stroke:#fff,stroke-width:2px,color:#fff
-    style REDIS_C fill:#eb4d4b,stroke:#fff,stroke-width:2px,color:#fff
-    style MCP_SHARED fill:#6c5ce7,stroke:#fff,stroke-width:2px,color:#fff
-    style SSO fill:#fd79a8,stroke:#fff,stroke-width:2px,color:#fff
-```
-
-**Enterprise Multi-Tenant Benefits:**
-- **🏢 Organizational Isolation** - Complete data separation between teams/companies
-- **🔒 Enhanced Security** - Each org has dedicated infrastructure and database
-- **🔐 Single Sign-On (SSO)** - Integrated Microsoft AD/Google authentication
-- **📊 Resource Control** - Allocate specific server resources per organization
-- **🌐 Flexible Routing** - Route by subdomain (orgA.graphdone.local)
-- **🔧 Custom Configuration** - Per-org settings, themes, and integrations
-- **💾 Centralized Management** - Shared monitoring, backups, and DNS services
-- **🤖 AI Agent Access** - Shared MCP server can access all orgs (with permissions)
-
-**Current Status:** *This is a future architecture vision - GraphDone-Core currently runs as single-server application*
-
-## Philosophy
-
-GraphDone celebrates cognitive diversity by providing tools where different minds—human and AI—can collaborate naturally. Traditional project management forces everyone into the same workflow. We believe the best results come from teams where diverse thinking styles become strengths, not obstacles.
-
-## Key Features
-
-🧠 **Multiple Views** - Graph, list, calendar, or kanban - work how your mind works best  
-🔗 **Natural Dependencies** - Connect tasks through real relationships, not artificial hierarchies  
-⚡ **Focus-Friendly** - Deep-dive modes with gentle transitions for different attention styles  
-🤖 **Human-AI Collaboration** - AI agents as team members, not afterthoughts
 
 ## Meet the Founders
 
@@ -215,16 +53,16 @@ GraphDone celebrates cognitive diversity by providing tools where different mind
 
 </div>
 
-## Get Started
+## Get started
 
-**[⭐ GraphDone-Core](https://github.com/GraphDone/GraphDone-Core)** - Open source web application and GraphQL API  
-**[📖 Documentation](https://github.com/GraphDone/GraphDone-Core/tree/main/docs)** - Complete technical documentation and guides
+- **[graphdone.com](https://graphdone.com)**: the hosted app.
+- **[GraphDone-Core](https://github.com/GraphDone/GraphDone-Core)**: the open-source web app, GraphQL API and MCP server, to run yourself. The one-line installer is broken until [GraphDone-Core#243](https://github.com/GraphDone/GraphDone-Core/issues/243) is fixed; until then, follow the manual installation steps in its README.
+- **[Documentation](https://github.com/GraphDone/GraphDone-Core/tree/main/docs)**: guides and technical reference.
 
-**Tech Stack:** React, TypeScript, Node.js, GraphQL, Neo4j, Docker  
-**License:** MIT - Open source and community-driven
+**Tech stack:** TypeScript, React, Node.js, GraphQL and MCP. graphdone.com runs on Cloudflare Pages, Workers and D1 (SQLite). Self-hosted Core runs with Docker; its graph store is Neo4j today, and [GraphDone-Core#244](https://github.com/GraphDone/GraphDone-Core/issues/244) plans SQLite as the default.
+
+**License:** MIT, for GraphDone-Core.
 
 ---
-
-**GraphDone** - For teams who think differently.
 
 *Started by Matthew Valancy & Lakshman Patel*
