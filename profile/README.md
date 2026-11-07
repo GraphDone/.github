@@ -12,27 +12,17 @@ GraphDone is one graph of work that people and AI agents share. Work items, the 
 - **People and AI agents** work in the same graph: people through the web app, agents through the MCP server and the agent API. Each of these reaches the graph on its own path; the MCP server and the agent API do not go through GraphQL.
 - Deployment and test automation and the landing site are maintained privately.
 
-```mermaid
-flowchart LR
-    P[People] --> W[Web app]
-    A[AI agents] --> M[MCP server]
-    A --> AA[Agent API]
-    subgraph C [GraphDone-Core - open source, MIT]
-        W --> G[GraphQL API]
-        G --> D[(Shared graph)]
-        M --> D
-        AA --> D
-    end
-    C -.-> S[Self-hosted by you]
-    C -.-> H[graphdone.com - hosted]
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="img/system/graphdone-system-dark.svg">
+  <img src="img/system/graphdone-system-light.svg" width="100%" alt="GraphDone system map: people reach the shared graph through the web app and the GraphQL API; AI agents reach it through the MCP server or the agent API (in development). GraphDone-Core is MIT, self-hosted or hosted at graphdone.com.">
+</picture>
 
-## Meet the Founders
+## Meet the Creators
 
 <div align="center">
 
 ### Matthew Valancy
-**Co-Founder, Engineer**
+**Creator, Engineer**
 
 <p align="center">
   <img src="img/matthew-photo.png" alt="Matthew Valancy" width="150" height="150">
@@ -43,7 +33,7 @@ flowchart LR
 ---
 
 ### Lakshman Patel
-**Co-Founder, Engineer** 
+**Creator, Engineer** 
 
 <p align="center">
   <img src="img/lakshman-photo.png" alt="Lakshman Patel" width="150" height="150">
