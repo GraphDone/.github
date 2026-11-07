@@ -7,9 +7,9 @@ GraphDone is one graph of work that people and AI agents share. Work items, the 
 
 ## How it fits together
 
-- **GraphDone-Core** is open source (MIT): a React web app, a GraphQL API and an MCP server for AI agents. You can self-host it.
+- **GraphDone-Core** is open source (MIT): a React web app, a GraphQL API and an MCP server for AI agents. You can self-host it. An agent API is in development on its `dev` branch.
 - **graphdone.com** is the hosted app, built on Core. It runs on Cloudflare: Pages for the web app, Workers for the API, and D1 (SQLite) for the graph. A private hosted layer adds hardened sign-in, enrollment, sharing and usage limits.
-- **People and AI agents** work in the same graph, through the web app, the MCP server and the agent API.
+- **People and AI agents** work in the same graph: people through the web app, agents through the MCP server and the agent API. Each of these reaches the graph on its own path; the MCP server and the agent API do not go through GraphQL.
 - Deployment and test automation and the landing site are maintained privately.
 
 ```mermaid
@@ -19,11 +19,12 @@ flowchart LR
     A --> AA[Agent API]
     subgraph C [GraphDone-Core - open source, MIT]
         W --> G[GraphQL API]
-        M --> G
-        AA --> G
+        G --> D[(Shared graph)]
+        M --> D
+        AA --> D
     end
     C -.-> S[Self-hosted by you]
-    C -.-> H[graphdone.com on Cloudflare]
+    C -.-> H[graphdone.com - Core plus a private hosted layer]
 ```
 
 ## Meet the Founders
@@ -55,7 +56,7 @@ flowchart LR
 ## Get started
 
 - **[graphdone.com](https://graphdone.com)**: the hosted app.
-- **[GraphDone-Core](https://github.com/GraphDone/GraphDone-Core)**: the open-source web app, GraphQL API and MCP server, with a [quick start](https://github.com/GraphDone/GraphDone-Core#quick-start) for running it yourself.
+- **[GraphDone-Core](https://github.com/GraphDone/GraphDone-Core)**: the open-source web app, GraphQL API and MCP server, to run yourself. The one-line installer is broken until [GraphDone-Core#243](https://github.com/GraphDone/GraphDone-Core/issues/243) is fixed; until then, follow the manual installation steps in its README.
 - **[Documentation](https://github.com/GraphDone/GraphDone-Core/tree/main/docs)**: guides and technical reference.
 
 **Tech stack:** TypeScript, React, Node.js, GraphQL and MCP. graphdone.com runs on Cloudflare Pages, Workers and D1 (SQLite). Self-hosted Core runs with Docker; its graph store is Neo4j today, and [GraphDone-Core#244](https://github.com/GraphDone/GraphDone-Core/issues/244) plans SQLite as the default.
