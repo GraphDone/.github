@@ -24,7 +24,7 @@ flowchart LR
         AA --> D
     end
     C -.-> S[Self-hosted by you]
-    C -.-> H[graphdone.com - Core plus a private hosted layer]
+    C -.-> H[graphdone.com - hosted]
 ```
 
 ## Meet the Founders
